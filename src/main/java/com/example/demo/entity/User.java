@@ -16,7 +16,7 @@ public class User {
     private String status; // NORMAL, BLOCKED
 
     @Enumerated(value = EnumType.STRING)
-    private Role role = Role.USER;
+    private Role role;
 
     public User(String role, String email, String nickname, String password) {
         this.role = Role.of(role);
