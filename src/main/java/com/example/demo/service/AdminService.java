@@ -17,7 +17,7 @@ public class AdminService {
 
     // TODO: 4. find or save 예제 개선
     @Transactional
-    public void reportUsers(List<Long> userIds) {
+    public List<Long> reportUsers(List<Long> userIds) {
         //한번에 조회 후 조회한 크기와 기존 크기가 다르면 에러 throw
         List<User> users = userRepository.findAllById(userIds);
 
@@ -30,5 +30,7 @@ public class AdminService {
         }
 
         userRepository.saveAll(users);
+
+        return userIds;
     }
 }
