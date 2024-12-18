@@ -16,6 +16,7 @@ public class AdminService {
     }
 
     // TODO: 4. find or save 예제 개선
+    //findAllById()에서 1번, updateStatusToBlockedByIds() 에서 1번 총 2번의 쿼리가 실행된다.
     @Transactional
     public List<Long> reportUsers(List<Long> userIds) {
         //한번에 조회 후 조회한 크기와 기존 크기가 다르면 에러 throw
@@ -24,12 +25,7 @@ public class AdminService {
         if(users.size() != userIds.size()) {
             throw new IllegalArgumentException("존재하지 않는 ID 값이 있습니다.");
         }
-
-        for(User user : users) {
-            user.updateStatusToBlocked();
-        }
-
-        userRepository.saveAll(users);
+        userRepository.updateStatusToBlockedByIds(userIds);
 
         return userIds;
     }
